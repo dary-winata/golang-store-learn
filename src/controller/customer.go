@@ -5,15 +5,30 @@ import (
 	"online_shop_api/src/model"
 	"online_shop_api/src/utils"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-var database *mongo.Collection
+var databaseCustomer *mongo.Collection
 
 func init() {
-	database = utils.Controller.Collection("customer")
+	databaseCustomer = utils.Controller.Collection("customers")
 }
 
 func CreateCustomer(customer model.Customer) {
-	database.InsertOne(context.TODO(), customer)
+	databaseCustomer.InsertOne(context.TODO(), customer)
+}
+
+func FindCustomerByUsername(customer model.Customer) model.Customer {
+	var value model.Customer
+	databaseCustomer.FindOne(context.TODO(), bson.M{"username": customer.Username}).Decode(&value)
+
+	return value
+}
+
+func FindCustomerByEmail(customer model.Customer) model.Customer {
+	var value model.Customer
+	databaseCustomer.FindOne(context.TODO(), bson.M{"email": customer.Email}).Decode(&value)
+
+	return value
 }

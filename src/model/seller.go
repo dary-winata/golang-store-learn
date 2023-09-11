@@ -3,13 +3,12 @@ package model
 import (
 	"encoding/json"
 	"io"
-
 	"online_shop_api/src/utils"
 
 	"github.com/google/uuid"
 )
 
-type Customer struct {
+type Seller struct {
 	Id       string `json:"id", binding:"required"`
 	Username string `json:"username", binding:"required"`
 	Email    string `json:"email", binding:"required"`
@@ -17,8 +16,8 @@ type Customer struct {
 	Name     string `json:"name"`
 }
 
-func (customer Customer) ModelToJson(body io.ReadCloser) Customer {
-	var value Customer
+func (seller Seller) ModelToJson(body io.ReadCloser) Seller {
+	var value Seller
 
 	err := json.NewDecoder(body).Decode(&value)
 	utils.ErrorException(err)
@@ -27,6 +26,6 @@ func (customer Customer) ModelToJson(body io.ReadCloser) Customer {
 	return value
 }
 
-func (customer Customer) GetUsername() string {
-	return customer.Username
+func (seller Seller) GetUsername() string {
+	return seller.Username
 }
