@@ -25,3 +25,17 @@ func FindSellerByUsernameandEmail(seller model.Seller) model.Seller {
 
 	return value
 }
+
+func FindSellerByUsername(seller model.Seller) model.Seller {
+	var value model.Seller
+	databaseSeller.FindOne(context.TODO(), bson.M{"username": seller.Username}).Decode(&value)
+
+	return value
+}
+
+func FindSellerByEmail(seller model.Seller) model.Seller {
+	var value model.Seller
+	databaseSeller.FindOne(context.TODO(), bson.M{"email": seller.Email}).Decode(&value)
+
+	return value
+}
