@@ -12,6 +12,8 @@ import (
 func Run() {
 	port := os.Getenv("PORT")
 
+	log.Print("Portnya adalah : " + port)
+
 	log.Print("The is Server Running on localhost port " + port)
 	routes.CustomerRoute()
 	routes.SellerRoute()
