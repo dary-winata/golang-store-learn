@@ -3,6 +3,7 @@ package utils
 import (
 	"context"
 	"fmt"
+	"os"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -12,7 +13,13 @@ var Controller *mongo.Database
 var ctx = context.Background()
 
 func init() {
-	clientOptions := options.Client().ApplyURI("mongodb+srv://darywinata:zabuza0920@oneforall.ar0ve.mongodb.net/?retryWrites=true&w=majority")
+	mongodbUrl := os.Getenv("MONGODB_URL")
+
+	if mongodbUrl == "" {
+		fmt.Println("no mongodb url")
+	}
+
+	clientOptions := options.Client().ApplyURI(mongodbUrl)
 	client, err := mongo.Connect(ctx, clientOptions)
 	if err != nil {
 		ErrorException(err)

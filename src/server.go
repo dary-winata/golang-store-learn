@@ -3,15 +3,18 @@ package src
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"online_shop_api/src/routes"
 	"online_shop_api/src/utils"
 )
 
 func Run() {
-	log.Print("The is Server Running on localhost port 3000")
+	port := os.Getenv("PORT")
+
+	log.Print("The is Server Running on localhost port " + port)
 	routes.CustomerRoute()
 	routes.SellerRoute()
-	err := http.ListenAndServe(":3000", nil)
+	err := http.ListenAndServe(":"+port, nil)
 	utils.ErrorException(err)
 }

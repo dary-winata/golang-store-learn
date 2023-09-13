@@ -32,10 +32,10 @@ func LoginCustomer(customer model.Customer) (string, error) {
 	var value = controller.FindCustomerByUsername(customer)
 	if (value != model.Customer{}) {
 		if value.Password == customer.Password {
-			token, error := auth.GenerateJwt(value)
+			token, err := auth.GenerateJwt(value)
 
-			if error != nil {
-				return "", error
+			if err != nil {
+				return "", err
 			}
 
 			return token, nil
