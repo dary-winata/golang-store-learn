@@ -12,6 +12,10 @@ import (
 func Run() {
 	port := os.Getenv("PORT")
 
+	if port == "" {
+		port = "3000"
+	}
+
 	log.Print("Portnya adalah : " + port)
 
 	log.Print("The is Server Running on localhost port " + port)
